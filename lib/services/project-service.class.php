@@ -18,7 +18,7 @@ class ProjectService
     /**
      * Vrati json seznam projektu (lze filtrovat dle queryParams)
      *
-     * @param string<IQueryModel> $queryParams
+     * @param string<IProjectQueryModel> $queryParams
      * @param array $headers
      * @return string<IProjectModel[]>
      */

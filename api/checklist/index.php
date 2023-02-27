@@ -34,12 +34,19 @@ switch ($method) {
         );
         break;
 
+    case 'DELETE':
+        echo $manager->serviceManager->checklistService->deleteChecklist($_GET['id']);
+        break;
+
     default:
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->checklistService->getChecklist($_GET['id']);
-        } else {
+        }
+        //
+        else {
             $queryParams = http_build_query($_GET);
             $queryParams = $queryParams ? "?$queryParams" : '';
+            //
             if (isset($_GET['project_id'])) {
                 echo Manager::USE_FILTER(
                     $_GET,

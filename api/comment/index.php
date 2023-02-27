@@ -18,6 +18,10 @@ switch ($method) {
         );
         break;
 
+    case 'DELETE':
+        echo $manager->serviceManager->commentService->deleteComment($_GET['id']);
+        break;
+
     default:
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->commentService->getComment($_GET['id']);

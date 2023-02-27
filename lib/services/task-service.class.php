@@ -18,7 +18,7 @@ class TaskService
     /**
      * Vrati json seznam tasku (lze filtrovat dle queryParams)
      *
-     * @param string<IQueryModel> $queryParams
+     * @param string<ITaskQueryModel> $queryParams
      * @param array $headers
      * @return string<ITaskModel[]>
      */
@@ -30,6 +30,44 @@ class TaskService
             ]
         ]);
         $response = $this->_client->request('GET', "$this->_api/tasks$queryParams", $headers);
+        return $response->getBody();
+    }
+
+    /**
+     * Vrati json seznam tasku z daneho projektu (lze filtrovat dle queryParams)
+     *
+     * @param string<ITaskQueryModel> $queryParams
+     * @param integer $projectId
+     * @param array $headers
+     * @return string<ITaskModel[]>
+     */
+    function getProjectTasks(string $queryParams = '', int $projectId, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('GET', "$this->_api/projects/$projectId/tasks$queryParams", $headers);
+        return $response->getBody();
+    }
+
+    /**
+     * Vrati json seznam tasku z dane sekce (lze filtrovat dle queryParams)
+     *
+     * @param string<ITaskQueryModel> $queryParams
+     * @param integer $sectionId
+     * @param array $headers
+     * @return string<ITaskModel[]>
+     */
+    function getSectionTasks(string $queryParams = '', int $sectionId, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('GET', "$this->_api/sections/$sectionId/tasks$queryParams", $headers);
         return $response->getBody();
     }
 
@@ -54,12 +92,12 @@ class TaskService
     /**
      * Vytvori task
      *
-     * @param integer $parentId
+     * @param integer $sectionId
      * @param string $params
      * @param array $headers
      * @return string<ITaskModel>
      */
-    function createTask(int $parentId, string $params, $headers = []): string
+    function createSectionTask(int $sectionId, string $params, $headers = []): string
     {
         $headers = array_merge($headers, [
             'body' => $params,
@@ -69,7 +107,7 @@ class TaskService
                 'content-type' => 'application/json',
             ]
         ]);
-        $response = $this->_client->request('POST', "$this->_api/sections/$parentId/tasks/", $headers);
+        $response = $this->_client->request('POST', "$this->_api/sections/$sectionId/tasks/", $headers);
         return $response->getBody();
     }
 

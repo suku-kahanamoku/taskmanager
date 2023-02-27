@@ -73,4 +73,22 @@ class AttachmentService
         $response = $this->_client->request('POST', "$this->_api/tasks/$taskId/attachments/", $headers);
         return $response->getBody();
     }
+
+    /**
+     * 
+     *
+     * @param integer $id
+     * @param array $headers
+     * @return string
+     */
+    function deleteAttachment(int $id, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('DELETE', "$this->_api/attachments/$id", $headers);
+        return $response->getBody();
+    }
 }

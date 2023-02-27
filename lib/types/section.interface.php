@@ -9,3 +9,15 @@ interface ISectionModel extends IModel
     public int $project_id;
     public int $sequence;
 }
+
+interface ISectionQueryModel extends IQueryModel
+{
+    public EStatus $status;
+}
+
+enum EStatus
+{
+    case active;
+    case trashed;
+    case all;
+}

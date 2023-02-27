@@ -18,6 +18,10 @@ switch ($method) {
         );
         break;
 
+    case 'DELETE':
+        echo $manager->serviceManager->attachmentService->deleteAttachment($_GET['id']);
+        break;
+
     default:
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->attachmentService->getAttachment($_GET['id']);
@@ -26,7 +30,10 @@ switch ($method) {
         if (isset($_GET['task_id'])) {
             $queryParams = http_build_query($_GET);
             $queryParams = $queryParams ? "?$queryParams" : '';
-            echo $manager->serviceManager->attachmentService->getTaskAttachments($queryParams, $_GET['task_id']);
+            echo $manager->serviceManager->attachmentService->getTaskAttachments(
+                $queryParams,
+                $_GET['task_id']
+            );
         }
         break;
 }

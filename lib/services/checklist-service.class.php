@@ -29,7 +29,7 @@ class ChecklistService
                 'Authorization' => $this->_token,
             ]
         ]);
-        $response = $this->_client->request('GET', "$this->_api/checklist/$id", $headers);
+        $response = $this->_client->request('GET', "$this->_api/checklists/$id", $headers);
         return $response->getBody();
     }
 
@@ -89,7 +89,7 @@ class ChecklistService
                 'content-type' => 'application/json',
             ]
         ]);
-        $response = $this->_client->request('POST', "$this->_api/projects/$projectId/", $headers);
+        $response = $this->_client->request('POST', "$this->_api/projects/$projectId/checklists", $headers);
         return $response->getBody();
     }
 
@@ -111,7 +111,7 @@ class ChecklistService
                 'content-type' => 'application/json',
             ]
         ]);
-        $response = $this->_client->request('POST', "$this->_api/tasks/$taskId/", $headers);
+        $response = $this->_client->request('POST', "$this->_api/tasks/$taskId/checklists", $headers);
         return $response->getBody();
     }
 
@@ -134,6 +134,24 @@ class ChecklistService
             ]
         ]);
         $response = $this->_client->request('PUT', "$this->_api/checklist/$id", $headers);
+        return $response->getBody();
+    }
+
+    /**
+     * 
+     *
+     * @param integer $id
+     * @param array $headers
+     * @return string
+     */
+    function deleteChecklist(int $id, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('DELETE', "$this->_api/checklist/$id", $headers);
         return $response->getBody();
     }
 }

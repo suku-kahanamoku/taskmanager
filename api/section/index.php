@@ -12,7 +12,7 @@ $method = $_GET['method'] ?? 'GET';
 
 switch ($method) {
     case 'POST':
-        echo $manager->serviceManager->sectionService->createSection(
+        echo $manager->serviceManager->sectionService->createProjectSection(
             $_GET['project_id'],
             file_get_contents('php://input')
         );
@@ -28,13 +28,25 @@ switch ($method) {
     default:
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->sectionService->getSection($_GET['id']);
-        } else {
+        }
+        //
+        else {
             $queryParams = http_build_query($_GET);
             $queryParams = $queryParams ? "?$queryParams" : '';
-            echo Manager::USE_FILTER(
-                $_GET,
-                $manager->serviceManager->sectionService->getSections($queryParams)
-            );
+            //
+            if (isset($_GET['project_id'])) {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->sectionService->getProjectSections($queryParams, $_GET['project_id'])
+                );
+            }
+            //
+            else {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->sectionService->getSections($queryParams)
+                );
+            }
         }
         break;
 }

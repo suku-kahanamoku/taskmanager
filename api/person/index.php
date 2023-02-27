@@ -12,7 +12,18 @@ $method = $_GET['method'] ?? 'GET';
 
 if (isset($_GET['id'])) {
     echo $manager->serviceManager->personService->getPerson($_GET['id']);
-} else {
+}
+//
+elseif (isset($_GET['project_id'])) {
+    $queryParams = http_build_query($_GET);
+    $queryParams = $queryParams ? "?$queryParams" : '';
+    echo Manager::USE_FILTER(
+        $_GET,
+        $manager->serviceManager->personService->getProjectPersons($queryParams, $_GET['project_id'])
+    );
+}
+//
+else {
     $queryParams = http_build_query($_GET);
     $queryParams = $queryParams ? "?$queryParams" : '';
     echo Manager::USE_FILTER(

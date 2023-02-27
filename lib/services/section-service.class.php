@@ -18,7 +18,7 @@ class SectionService
     /**
      * Vrati json seznam sekci (lze filtrovat dle queryParams)
      *
-     * @param string<IQueryModel> $queryParams
+     * @param string<ISectionQueryModel> $queryParams
      * @param array $headers
      * @return string<ISectionModel[]>
      */
@@ -30,6 +30,24 @@ class SectionService
             ]
         ]);
         $response = $this->_client->request('GET', "$this->_api/sections$queryParams", $headers);
+        return $response->getBody();
+    }
+
+    /**
+     * Vrati json seznam sekci z daneho projektu (lze filtrovat dle queryParams)
+     *
+     * @param string<ISectionQueryModel> $queryParams
+     * @param array $headers
+     * @return string<ISectionModel[]>
+     */
+    function getProjectSections(string $queryParams = '', int $projectId, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('GET', "$this->_api/projects/$projectId/sections$queryParams", $headers);
         return $response->getBody();
     }
 
@@ -54,12 +72,12 @@ class SectionService
     /**
      * Vytvori sekci
      *
-     * @param integer $parentId
+     * @param integer $projectId
      * @param string $params
      * @param array $headers
      * @return string<ISectionModel>
      */
-    function createSection(int $parentId, string $params, $headers = []): string
+    function createProjectSection(int $projectId, string $params, $headers = []): string
     {
         $headers = array_merge($headers, [
             'body' => $params,
@@ -69,7 +87,7 @@ class SectionService
                 'content-type' => 'application/json',
             ]
         ]);
-        $response = $this->_client->request('POST', "$this->_api/projects/$parentId/sections/", $headers);
+        $response = $this->_client->request('POST', "$this->_api/projects/$projectId/sections/", $headers);
         return $response->getBody();
     }
 

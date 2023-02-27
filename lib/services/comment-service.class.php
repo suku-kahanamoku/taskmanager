@@ -73,4 +73,22 @@ class CommentService
         $response = $this->_client->request('POST', "$this->_api/tasks/$taskId/comments/", $headers);
         return $response->getBody();
     }
+
+    /**
+     * 
+     *
+     * @param integer $id
+     * @param array $headers
+     * @return string
+     */
+    function deleteComment(int $id, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('DELETE', "$this->_api/comments/$id", $headers);
+        return $response->getBody();
+    }
 }

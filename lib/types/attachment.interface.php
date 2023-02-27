@@ -1,10 +1,10 @@
 <?php
 
-interface IProjectModel extends IModel
+interface IAttachmentModel extends IModel
 {
-    public string $contentType;
     public int $size;
     public int $source;
+    public string $contentType;
     public int $person_id;
     public int $task_id;
     public string $thumb_url;

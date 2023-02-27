@@ -12,7 +12,7 @@ $method = $_GET['method'] ?? 'GET';
 
 switch ($method) {
     case 'POST':
-        echo $manager->serviceManager->taskService->createTask(
+        echo $manager->serviceManager->taskService->createSectionTask(
             $_GET['section_id'],
             file_get_contents('php://input')
         );
@@ -28,13 +28,32 @@ switch ($method) {
     default:
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->taskService->getTask($_GET['id']);
-        } else {
+        }
+        //
+        else {
             $queryParams = http_build_query($_GET);
             $queryParams = $queryParams ? "?$queryParams" : '';
-            echo Manager::USE_FILTER(
-                $_GET,
-                $manager->serviceManager->taskService->getTasks($queryParams)
-            );
+            //
+            if (isset($_GET['project_id'])) {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->taskService->getProjectTasks($queryParams, $_GET['project_id'])
+                );
+            }
+            //
+            elseif (isset($_GET['section_id'])) {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->taskService->getSectionTasks($queryParams, $_GET['section_id'])
+                );
+            }
+            //
+            else {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->taskService->getTasks($queryParams)
+                );
+            }
         }
         break;
 }

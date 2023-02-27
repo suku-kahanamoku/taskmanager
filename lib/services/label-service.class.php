@@ -114,4 +114,22 @@ class LabelService
         $response = $this->_client->request('PUT', "$this->_api/labels/$id", $headers);
         return $response->getBody();
     }
+
+    /**
+     * 
+     *
+     * @param integer $id
+     * @param array $headers
+     * @return string
+     */
+    function deleteLabel(int $id, $headers = []): string
+    {
+        $headers = array_merge($headers, [
+            'headers' => [
+                'Authorization' => $this->_token,
+            ]
+        ]);
+        $response = $this->_client->request('DELETE', "$this->_api/labels/$id", $headers);
+        return $response->getBody();
+    }
 }

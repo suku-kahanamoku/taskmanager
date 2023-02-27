@@ -25,25 +25,32 @@ switch ($method) {
         );
         break;
 
+    case 'DELETE':
+        echo $manager->serviceManager->labelService->deleteLabel($_GET['id']);
+        break;
+
     default:
-        $queryParams = http_build_query($_GET);
-        $queryParams = $queryParams ? "?$queryParams" : '';
         if (isset($_GET['id'])) {
             echo $manager->serviceManager->labelService->getLabel($_GET['id']);
         }
         //
-        elseif (isset($_GET['project_id'])) {
-            echo Manager::USE_FILTER(
-                $_GET,
-                $manager->serviceManager->labelService->getProjectLabels($queryParams, $_GET['project_id'])
-            );
-        }
-        //
-        elseif (isset($_GET['task_id'])) {
-            echo Manager::USE_FILTER(
-                $_GET,
-                $manager->serviceManager->labelService->getTaskLabels($queryParams, $_GET['task_id'])
-            );
+        else {
+            $queryParams = http_build_query($_GET);
+            $queryParams = $queryParams ? "?$queryParams" : '';
+            //
+            if (isset($_GET['project_id'])) {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->labelService->getProjectLabels($queryParams, $_GET['project_id'])
+                );
+            }
+            //
+            elseif (isset($_GET['task_id'])) {
+                echo Manager::USE_FILTER(
+                    $_GET,
+                    $manager->serviceManager->labelService->getTaskLabels($queryParams, $_GET['task_id'])
+                );
+            }
         }
         break;
 }
