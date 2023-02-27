@@ -60,7 +60,7 @@ switch ($method) {
             elseif (isset($_GET['task_id'])) {
                 echo Manager::USE_FILTER(
                     $_GET,
-                    $manager->serviceManager->checklistService->getProjectChecklists(
+                    $manager->serviceManager->checklistService->getTaskChecklists(
                         $queryParams,
                         $_GET['task_id']
                     )

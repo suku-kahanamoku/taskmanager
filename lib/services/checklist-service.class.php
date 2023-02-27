@@ -133,7 +133,7 @@ class ChecklistService
                 'content-type' => 'application/json',
             ]
         ]);
-        $response = $this->_client->request('PUT', "$this->_api/checklist/$id", $headers);
+        $response = $this->_client->request('PUT', "$this->_api/checklists/$id", $headers);
         return $response->getBody();
     }
 
@@ -151,7 +151,7 @@ class ChecklistService
                 'Authorization' => $this->_token,
             ]
         ]);
-        $response = $this->_client->request('DELETE', "$this->_api/checklist/$id", $headers);
+        $response = $this->_client->request('DELETE', "$this->_api/checklists/$id", $headers);
         return $response->getBody();
     }
 }
