@@ -12,6 +12,13 @@ class Manager
         $this->serviceManager = new ServiceManager($config);
     }
 
+    /**
+     * Musi se to takhle pitome filtrovat, pac Meistertask ma nedostatecne filtrovani
+     *
+     * @param array $queryParams
+     * @param string $items
+     * @return string
+     */
     static function USE_FILTER(array $queryParams = [], string $items): string
     {
         $result = $items;
@@ -27,6 +34,7 @@ class Manager
                 $matched = array_filter($items, function ($item) use ($queryParams) {
                     foreach ($queryParams as $key => $value) {
                         if (isset($item[$key])) {
+                            // odstrani diakritiku a porovna zaznamy
                             $itemValue = strtolower(self::RM_DIACRITICS($item[$key]));
                             $searchValue = strtolower(self::RM_DIACRITICS($value));
                             if (!str_contains($itemValue, $searchValue)) {
@@ -45,6 +53,12 @@ class Manager
         return $result;
     }
 
+    /**
+     * Odstrani diakritiku
+     *
+     * @param string $value
+     * @return void
+     */
     static function RM_DIACRITICS(string $value)
     {
         $table = array(
