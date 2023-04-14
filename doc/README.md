@@ -18,7 +18,7 @@ Tato aplikace je napsána v PHP a slouží k komunikaci s API službou MeisterTa
     -   **/lib/services/attachment-service.class.php:** třída pro práci s přílohami.
     -   **/lib/services/service-manager.class.php:** knihovna obsahující všechny výše uvedené služby.
     -   **/lib/types/\<models\>:** obsahuje všechna rozhraní modelů response a request (...QueryModel).
--   **/lib/manager.class.php:** nejvyšší třída obsluhující všechny služby.
+    -   **/lib/manager.class.php:** nejvyšší třída obsluhující všechny služby.
 
 Knihovna **ServiceManager** obsahuje všechny výše uvedené služby a umožňuje s nimi snadno komunikovat. Konstruktor této třídy inicializuje jednotlivé služby.
 
