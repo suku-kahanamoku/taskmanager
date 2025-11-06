@@ -1,0 +1,13 @@
+{
+    "name": "sukus/taskmanager",
+    "description": "PHP aplikace pro komunikaci s MeisterTask API.",
+    "type": "project",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TaskManager\\": "lib/"
+        }
+    }
+}

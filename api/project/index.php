@@ -1,6 +1,6 @@
 <?php
 include_once '../../lib/manager.class.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/taskmanager/vendor/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
